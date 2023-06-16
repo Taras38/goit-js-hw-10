@@ -37,7 +37,7 @@ body {
     display: inline-block;
     position:relative;
     border: 3px solid;
-    border-color: rgb(7, 87, 248) rgb(237, 250, 3) transparent transparent;
+    border-color: rgb(7, 8, 8) rgb(4, 4, 3) transparent transparent;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
   }
@@ -52,7 +52,7 @@ body {
     bottom: 0;
     margin: auto;
     border: 3px solid;
-    border-color: transparent transparent rgb(237, 250, 3) rgb(7, 87, 248);
+    border-color: transparent transparent rgb(8, 8, 6) rgb(5, 5, 6);
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -63,7 +63,7 @@ body {
   .loader_style::before {
     width: 32px;
     height: 32px;
-    border-color: rgb(7, 87, 248) rgb(237, 250, 3) transparent transparent;
+    border-color: rgb(3, 3, 4) rgb(9, 9, 8) transparent transparent;
     animation: rotation 1.5s linear infinite;
   }
       
@@ -87,7 +87,7 @@ body {
     display: none;
     text-align: center;
     margin: 20px 0;
-    color: rgb(7, 87, 248) rgb(32, 3, 250);
+    color: rgb(3, 3, 3) rgb(1, 1, 1);
     font-weight: bold;
   }
   
@@ -99,10 +99,9 @@ body {
   }
   
   .image {
-    max-width: 600px;
+    max-width: 800px;
     margin-bottom: 5px;
-    border: 1px solid rgb(11, 10, 10);
-    border-radius: 50px;
+    border: 3px solid rgb(1, 1, 1);
   }
   
   .name {
