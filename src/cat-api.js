@@ -10,7 +10,12 @@ export function fetchBreeds(errorEl) {
         }
         return response.json();
       })
-    .catch(error => Notiflix.Notify.failure(errorEl.textContent))
+      .catch(error => {
+        Notiflix.Notify.failure(errorEl.textContent);
+        loaderS.style.display = 'none';
+        loaderEl.style.display = 'none';
+        selectEl.style.display = 'block';
+    })
 };
 
 function urlConstructor(breedId) {
@@ -21,6 +26,7 @@ function urlConstructor(breedId) {
         api_key: apiKey,
     });
     return urlApi + searchParams.toString();
+    
 }
 
 export function fetchCatByBreed(breedId, errorEl, loaderEl, loaderS, selectEl) {

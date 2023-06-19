@@ -42,7 +42,7 @@ let htmlEls = `<img src="${image}" alt="${name}" class="image"><h1 class="title"
 }
 async function onSelectChange(event) {
     const breedId = selectEl.options[selectEl.selectedIndex].value;
-    selectEl.style.display = 'none';
+    selectEl.style.display = 'block';
     divEl.style.display = 'none';
     loaderSt.style.display = 'block';
     loaderEl.style.display = 'block';
