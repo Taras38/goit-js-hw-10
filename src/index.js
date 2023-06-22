@@ -1,57 +1,73 @@
-import SlimSelect from 'slim-select';
-import {fetchBreeds, fetchCatByBreed} from './cat-api.js';
-const selectEl = document.querySelector('.breed-select');
-const divEl = document.querySelector('.cat-info');
-const loaderEl = document.querySelector('.loader');
+import { fetchBreeds } from './cat-api'
+import { fetchCatByBreed } from './cat-api'
+export { selectEl }
+export { loaderEl }
+export{errorEl}
+
+const divEl = document.querySelector('.cat-info')
+const selectEl = document.querySelector('.breed-select')
+const loaderEl = document.querySelector('.loader')
 const errorEl = document.querySelector('.error')
-const loaderSt = document.querySelector('.loader_style');
-loaderEl.style.display = 'none';
-errorEl.style.display = 'none';
-let breeds = [];
-function takeBreeds(response) {
-    for(let breed in response) {
-        breeds.push({name: response[breed].name, id: response[breed].id})
+
+fetchBreeds()
+    .then((breeds) => renderBreedCats(breeds))
+    .catch((error) => addRemoveClass())
+
+function renderBreedCats(breeds) {
+  const breedCats =  breeds.map(({ id, name }) => ` <option value="${id}">${name}</option> ` ) 
+    return selectEl.innerHTML = breedCats,
+        selectEl.classList.remove('none'),
+    loaderEl.classList.remove('block')
     }
-}
-async function addBreeds() {
-    const response = await fetchBreeds(errorEl);
-    takeBreeds(response);
-    let listOfBreedsEl = breeds.map(element => {
-        let optionEl = document.createElement('option');
-        optionEl.value = element.id;
-        optionEl.textContent = element.name;
-        return optionEl;
+
+selectEl.addEventListener('change', (e) => {
+fetchCatByBreed(e.currentTarget.value)
+        .then((cat) => createCatInforms(cat))
+        .catch((error) => addRemoveClass())
+})
+
+function createCatInforms(arry) {
+    let url;
+    let description;
+    let temperament;
+    let name;
+    
+    if (!arry.length>0) {
+        return addClass()
+        
+    } else {
+            arry.forEach(element => {
+        
+            description = element.breeds[0].description,
+            url = element.url,
+            temperament = element.breeds[0].temperament,
+            name = element.breeds[0].name
+
     });
-    selectEl.append(...listOfBreedsEl)
+    }
+
+
+    return divEl.innerHTML =
+        ` <img src="${url}" alt="Cat" width="460"  />
+        <div class ="box">
+        <h1>${name}</h1>
+        <p>${description}</p>
+        <p><b>Temperament:</b>${temperament}</p></div>`,
+           selectEl.classList.remove('none'),
+    loaderEl.classList.remove('block')
+
 }
-addBreeds();
-function getElements(elements) {
-    const name = elements[0].breeds[0].name;
-    const description = elements[0].breeds[0].description;
-    const temperament = elements[0].breeds[0].temperament;
-    const image = elements[0].url;
-return {'name': name, 'description': description, 'temperament': temperament, 'image': image}
+
+function addRemoveClass() {
+  return loaderEl.classList.remove('block'),
+  errorEl.classList.add('block')
+  }       
+
+function addClass() {
+    return selectEl.classList.remove('none'),
+    loaderEl.classList.remove('block'),
+        errorEl.classList.add('block'),
+    divEl.innerHTML=''
 }
-function showBreed(returnedPromise) {
-    const elements = getElements(returnedPromise);
-    const {name, description, temperament, image} = elements;
-let htmlEls = `<img src="${image}" alt="${name}" class="image"><h1 class="title">${name}</h1><p class="description">${description}</p><p class="temperament"><b class="title-temperament">Temperament: </b>${temperament}</p>`
-    divEl.innerHTML = htmlEls;
-   loaderSt.style.display = 'none';
-    loaderEl.style.display = 'none';
-}
-async function onSelectChange(event) {
-    const breedId = selectEl.options[selectEl.selectedIndex].value;
-    selectEl.style.display = 'block';
-    divEl.style.display = 'none';
-    loaderSt.style.display = 'block';
-    loaderEl.style.display = 'block';
-    const returnedPromise = await fetchCatByBreed(breedId, errorEl, loaderEl, loaderSt, selectEl);
-    showBreed(returnedPromise);
-    divEl.style.display = 'block';
-    selectEl.style.display = 'block';
-}
-new SlimSelect({
-    select: '.select-breed'
-  })
- selectEl.addEventListener('change', onSelectChange)
+    
+    

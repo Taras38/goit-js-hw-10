@@ -1,49 +1,38 @@
-import Notiflix from 'notiflix';
+export { fetchBreeds };
+export { fetchCatByBreed };
+import { selectEl } from './index'
+import { loaderEl } from './index'
+import { errorEl } from './index';
 
-
-export function fetchBreeds(errorEl) {
-    let urlBreeds = 'https://api.thecatapi.com/v1/breeds';
-    return fetch(urlBreeds)
-    .then(response => {
+function fetchBreeds() {
+  selectEl.classList.add('none')
+  loaderEl.classList.add('block')
+  
+    const apiKey = 'live_OIJcAlfhioE2okkhdvZI0NBmnhOc4DuCU1xTCsqGhvs88ckKiLfq8DAgXSmrAfOG'
+    const baseUrl = 'https://api.thecatapi.com/v1/breeds'
+   return fetch(`${baseUrl}?api_key=${apiKey}`)
+      .then(response => {
         if (!response.ok) {
-          throw new Error(response.status);
-        }
-        return response.json();
-      })
-      .catch(error => {
-        Notiflix.Notify.failure(errorEl.textContent);
-        loaderS.style.display = 'none';
-        loaderEl.style.display = 'none';
-        selectEl.style.display = 'block';
-    })
-};
+     
+      throw new Error(response.status);
+    }
+    return response.json();
+  })
+}
+function fetchCatByBreed(breedId) {
+  errorEl.classList.remove('block')
+  selectEl.classList.add('none')
+  loaderEl.classList.add('block')
+  
+  const apiKey = 'live_OIJcAlfhioE2okkhdvZI0NBmnhOc4DuCU1xTCsqGhvs88ckKiLfq8DAgXSmrAfOG'
+  return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}&api_key=${apiKey}`)
+    .then(response => {
+      if (!response.ok) {
+       
+      throw new Error(response.status);
+      }
+      return response.json()
+  })
+}
 
-function urlConstructor(breedId) {
-    const urlApi = 'https://api.thecatapi.com/v1/images/search?';
-    const apiKey = 'live_YNCDjwrWN2uLXp5qyP4kC8cU0UsoTnfK1HhGShQmKnQ5UnjUa8TNsUQAXNlE9A0S';
-    const searchParams = new URLSearchParams({
-        breed_ids: breedId,
-        api_key: apiKey,
-    });
-    return urlApi + searchParams.toString();
     
-}
-
-export function fetchCatByBreed(breedId, errorEl, loaderEl, loaderS, selectEl) {
-    const urlBreed = urlConstructor(breedId);
-    return fetch(urlBreed)
-    .then(response => {
-        if (!response.ok) {
-          throw new Error(response.status);
-          
-        }
-        return response.json();
-      })
-    .catch(error => {
-        Notiflix.Notify.failure(errorEl.textContent);
-        loaderS.style.display = 'none';
-        loaderEl.style.display = 'none';
-        selectEl.style.display = 'block';
-    })
-
-}

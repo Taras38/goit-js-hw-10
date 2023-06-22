@@ -1,97 +1,28 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 15px;
-    background-color: #f5f5f5;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .title {
-    text-align: center;
-    color: #333;
-  }
-  
-  .breed-select {
-    cursor: pointer;
-    width: 20%;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    padding: 10px;
-    font-size: 16px;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .loader {
-    position: relative;
-    width: 164px;
-    height: 164px;
-  }
-  .loader::before , .loader::after {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background-color: #fff;
-    left: 50%;
-    top: 50%;
-    animation: rotate 1s ease-in infinite;
+.error {
+  display: none;
+  font-size: 25px;
+  font-weight: 600;
+  color: rgb(1, 1, 1);
 }
-.loader::after {
-  width: 20px;
-  height: 20px;
-  background-color: #FF3D00;
-  animation: rotate 1s ease-in infinite, moveY 1s ease-in infinite ;
+.loader {
+  display: none;
+  font-size: 25px;
+  font-weight: 600;
 }
-
-@keyframes moveY {
-  0% , 100% {top: 10%}
-  45% , 55% {top: 59%}
-  60% {top: 40%}
+.none {
+  display: none;
 }
-@keyframes rotate {
-  0% { transform: translate(-50%, -100%) rotate(0deg) scale(1 , 1)}
-  25%{ transform: translate(-50%, 0%) rotate(180deg) scale(1 , 1)}
-  45% , 55%{ transform: translate(-50%, 100%) rotate(180deg) scale(3 , 0.5)}
-  60%{ transform: translate(-50%, 100%) rotate(180deg) scale(1, 1)}
-  75%{ transform: translate(-50%, 0%) rotate(270deg) scale(1 , 1)}
-  100%{ transform: translate(-50%, -100%) rotate(360deg) scale(1 , 1)}
+.block {
+  display: block;
 }
-    
-
-  
-  .cat-info {
-    width: 800px;
-    margin: 0 auto;
-    margin-top: 10px;
-    text-align: center;
-  }
-  
-  .image {
-    max-width: 800px;
-    margin-bottom: 5px;
-    border: 3px solid rgb(1, 1, 1);
-  }
-  
-  .name {
-    font-size: 24px;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  .description {
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
-  .temperament {
-    color: #333;
-  }
+.cat-info {
+  display: flex;
+  margin-top: 20px;
+}
+h1 {
+  margin-top: 0;
+}
+.box {
+  width: 600px;
+  margin-left: 20px;
+}
